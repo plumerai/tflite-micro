@@ -117,6 +117,9 @@ TfLiteStatus MicroInterpreter::PrepareNodeAndRegistrationDataFromFlatbuffer() {
       if (status != kTfLiteOk) {
         MicroPrintf("Failed to get registration from op code %s\n ",
                     EnumNameBuiltinOperator(GetBuiltinCode(opcode)));
+        if (GetBuiltinCode(opcode) == BuiltinOperator_CUSTOM) {
+          MicroPrintf("Custom op code: %s\n", opcode->custom_code()->c_str());
+        }
         return status;
       }
       const auto* registration = graph_.GetAllocations()[subgraph_idx]
