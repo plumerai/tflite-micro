@@ -22,8 +22,9 @@ ENTRY(_main)
     * increased the RAM to 512K. This far exceeds the
       actual hardware but enables running the tests in the emulator.
 */
+/* LCE: For unknown reasons, the build of QEMU that we use does not work with this RAM size so we patch it to 128K */
 MEMORY {
- RAM (xrw) : ORIGIN = 0x20000000, LENGTH = 512K
+ RAM (xrw) : ORIGIN = 0x20000000, LENGTH = 128K
  FLASH (rx) : ORIGIN = 0x8000000, LENGTH =  2048K
 }
 
@@ -62,7 +63,21 @@ SECTIONS {
   *(.data*)
   . = ALIGN(4);
   _ld_data_load_dest_stop = .; /* export where to load from */
-} >RAM AT> FLASH
+} >RAM
+/* LCE Edit:
+ * The data section is normally stored as:  >RAM AT> FLASH
+ * Meaning during runtime the data is in RAM,
+ * but in the binary it will be added to the FLASH section.
+ * The startup assembly script will then copy the data from
+ * the LMA (in flash) to the VMA (in SRAM).
+ * This way you effectively have initialized data in RAM
+ * that does not get lost when the system is powered off.
+ *
+ * However for some reason this breaks the qemu run.
+ * Since qemu will directly write the data to the correct
+ * runtime address anyway, we can just use >RAM here.
+ */
+
 _ld_data_load_source = LOADADDR(.data);
 
 /* unitialized data section needs zero initialization */
