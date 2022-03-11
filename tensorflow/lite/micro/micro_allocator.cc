@@ -48,7 +48,7 @@ constexpr size_t kMaxScratchBuffersPerOp = 12;
 // needs a node id assignment.
 constexpr int kUnassignedScratchBufferRequestIndex = -1;
 
-const TfLiteIntArray kZeroLengthIntArray = {};
+const TfLiteIntArray kZeroLengthIntArray = {0};
 
 class MicroBuiltinDataAllocator : public TfLiteBridgeBuiltinDataAllocator {
  public:
