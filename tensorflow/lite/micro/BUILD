@@ -21,7 +21,10 @@ cc_library(
     hdrs = [
         "compatibility.h",
     ],
-    copts = micro_copts(),
+    copts = micro_copts() + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": ["-Werror"],
+    }),
 )
 
 cc_library(
@@ -33,7 +36,10 @@ cc_library(
     hdrs = [
         "micro_interpreter.h",
     ],
-    copts = micro_copts(),
+    copts = micro_copts() + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": ["-Werror"],
+    }),
     deps = [
         ":memory_helpers",
         ":micro_allocator",
@@ -61,7 +67,10 @@ cc_library(
     hdrs = [
         "micro_context.h",
     ],
-    copts = micro_copts(),
+    copts = micro_copts() + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": ["-Werror"],
+    }),
     deps = [
         ":memory_helpers",
         ":micro_allocator",
@@ -80,7 +89,10 @@ cc_library(
     hdrs = [
         "fake_micro_context.h",
     ],
-    copts = micro_copts(),
+    copts = micro_copts() + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": ["-Werror"],
+    }),
     deps = [
         ":memory_helpers",
         ":micro_allocator",
@@ -134,7 +146,10 @@ cc_library(
         "micro_allocator.h",
         "simple_memory_allocator.h",
     ],
-    copts = micro_copts(),
+    copts = micro_copts() + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": ["-Werror"],
+    }),
     deps = [
         ":flatbuffer_utils",
         ":memory_helpers",
@@ -159,7 +174,10 @@ cc_library(
     hdrs = [
         "micro_arena_constants.h",
     ],
-    copts = micro_copts(),
+    copts = micro_copts() + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": ["-Werror"],
+    }),
     deps = [],
 )
 
@@ -197,7 +215,10 @@ cc_library(
         "test_helper_custom_ops.h",
         "test_helpers.h",
     ],
-    copts = micro_copts(),
+    copts = micro_copts() + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": ["-Werror"],
+    }),
     deps = [
         ":micro_utils",
         ":op_resolvers",
@@ -222,7 +243,10 @@ cc_library(
         "micro_mutable_op_resolver.h",
         "micro_op_resolver.h",
     ],
-    copts = micro_copts(),
+    copts = micro_copts() + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": ["-Werror"],
+    }),
     deps = [
         ":micro_compatibility",
         "//tensorflow/lite/c:common",
@@ -242,7 +266,10 @@ cc_library(
     hdrs = [
         "debug_log.h",
     ],
-    copts = micro_copts(),
+    copts = micro_copts() + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": ["-Werror"],
+    }),
 )
 
 cc_library(
@@ -253,7 +280,10 @@ cc_library(
     hdrs = [
         "micro_error_reporter.h",
     ],
-    copts = micro_copts(),
+    copts = micro_copts() + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": ["-Werror"],
+    }),
     deps = [
         ":debug_log",
         ":micro_compatibility",
@@ -270,7 +300,10 @@ cc_library(
     hdrs = [
         "micro_resource_variable.h",
     ],
-    copts = micro_copts(),
+    copts = micro_copts() + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": ["-Werror"],
+    }),
     deps = [
         ":micro_allocator",
         ":micro_error_reporter",
@@ -288,7 +321,10 @@ cc_library(
     hdrs = [
         "micro_string.h",
     ],
-    copts = micro_copts(),
+    copts = micro_copts() + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": ["-Werror"],
+    }),
 )
 
 cc_library(
@@ -299,7 +335,10 @@ cc_library(
     hdrs = [
         "micro_time.h",
     ],
-    copts = micro_copts() + ["-DTF_LITE_USE_CTIME"],
+    copts = micro_copts() + ["-DTF_LITE_USE_CTIME"] + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": ["-Werror"],
+    }),
     deps = ["//tensorflow/lite/c:common"],
 )
 
@@ -311,7 +350,10 @@ cc_library(
     hdrs = [
         "micro_profiler.h",
     ],
-    copts = micro_copts(),
+    copts = micro_copts() + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": ["-Werror"],
+    }),
     deps = [
         ":micro_error_reporter",
         ":micro_time",
@@ -327,7 +369,10 @@ cc_library(
     hdrs = [
         "micro_utils.h",
     ],
-    copts = micro_copts(),
+    copts = micro_copts() + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": ["-Werror"],
+    }),
     deps = [
         ":memory_helpers",
         ":micro_error_reporter",
@@ -347,7 +392,10 @@ cc_library(
         "recording_micro_interpreter.h",
         "recording_simple_memory_allocator.h",
     ],
-    copts = micro_copts(),
+    copts = micro_copts() + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": ["-Werror"],
+    }),
     deps = [
         ":micro_allocator",
         ":micro_compatibility",
@@ -365,7 +413,10 @@ cc_library(
     hdrs = [
         "system_setup.h",
     ],
-    copts = micro_copts(),
+    copts = micro_copts() + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": ["-Werror"],
+    }),
 )
 
 cc_test(
