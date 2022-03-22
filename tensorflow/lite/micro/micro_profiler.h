@@ -70,7 +70,11 @@ class MicroProfiler {
   // Maximum number of events that this class can keep track of. If we call
   // AddEvent more than kMaxEvents number of times, then the oldest event's
   // profiling information will be overwritten.
+#if defined(LCE_PROFILING_LEVEL)
+  static constexpr int kMaxEvents = 1;
+#else
   static constexpr int kMaxEvents = 1024;
+#endif
 
   const char* tags_[kMaxEvents];
   uint32_t start_ticks_[kMaxEvents];
