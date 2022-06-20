@@ -912,6 +912,9 @@ typedef struct TfLiteContext {
   // WARNING: This is an experimental interface that is subject to change.
   TfLiteStatus (*ReleaseSubgraphContext)(struct TfLiteContext* context,
                                          int subgraph_index);
+
+  // Patch by LCE, only used through Robin-generated code
+  uint8_t* robin_tensor_arena;
 } TfLiteContext;
 
 // `TfLiteRegistrationExternal` is an external version of `TfLiteRegistration`
