@@ -840,6 +840,9 @@ typedef struct TfLiteContext {
   TfLiteStatus (*GetModelMetadata)(const struct TfLiteContext* context,
                                    const char* name, const char** ptr,
                                    size_t* bytes);
+
+  // Patch by LCE, only used through Robin-generated code
+  uint8_t* robin_tensor_arena;
 } TfLiteContext;
 
 // `TfLiteRegistrationExternal` is an external version of `TfLiteRegistration`
