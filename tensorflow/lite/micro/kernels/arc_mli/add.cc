@@ -371,7 +371,8 @@ TfLiteStatus AddPrepare(TfLiteContext* context, TfLiteNode* node) {
   TfLiteTensor* input2 =
       micro_context->AllocateTempInputTensor(node, kInputTensor2);
   TF_LITE_ENSURE(context, input2 != nullptr);
-  TfLiteTensor* output = AllocateTempOutputTensor(node, kOutputTensor);
+  TfLiteTensor* output =
+      micro_context->AllocateTempOutputTensor(node, kOutputTensor);
   TF_LITE_ENSURE(context, output != nullptr);
 
   OpData* data = static_cast<OpData*>(node->user_data);
