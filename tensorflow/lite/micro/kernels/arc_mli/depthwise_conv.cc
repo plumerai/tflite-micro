@@ -139,7 +139,7 @@ TfLiteStatus CalculateOpData(TfLiteContext* context, TfLiteNode* node,
   TfLiteTensor* filter =
       micro_context->AllocateTempInputTensor(node, kFilterTensor);
   TfLiteTensor* bias =
-      micro_context->AllocateTempInputTensor(context, node, kBiasTensor);
+      micro_context->AllocateTempInputTensor(node, kBiasTensor);
   TfLiteTensor* output =
       micro_context->AllocateTempOutputTensor(node, kOutputTensor);
 
@@ -150,8 +150,8 @@ TfLiteStatus CalculateOpData(TfLiteContext* context, TfLiteNode* node,
         context, input, filter, bias, output, params->activation,
         &data->output_multiplier, &data->output_shift,
         &data->output_activation_min, &data->output_activation_max,
-        data->per_channel_output_multiplier,
-        reinterpret_cast<int*>(data->per_channel_output_shift), num_channels);
+        data->per_channel_output_multiplier, data->per_channel_output_shift,
+        num_channels);
   }
   micro_context->DeallocateTempTfLiteTensor(input);
   micro_context->DeallocateTempTfLiteTensor(filter);
@@ -175,11 +175,16 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
       reinterpret_cast<TfLiteDepthwiseConvParams*>(node->builtin_data);
   OpData* data = static_cast<OpData*>(node->user_data);
 
-  TfLiteTensor* output = AllocateTempOutputTensor(node, kOutputTensor);
-  const TfLiteTensor* input = AllocateTempInputTensor(node, kInputTensor);
-  const TfLiteTensor* filter = AllocateTempInputTensor(node, kFilterTensor);
+  MicroContext* micro_context = GetMicroContext(context);
+
+  TfLiteTensor* output =
+      micro_context->AllocateTempOutputTensor(node, kOutputTensor);
+  const TfLiteTensor* input =
+      micro_context->AllocateTempInputTensor(node, kInputTensor);
+  const TfLiteTensor* filter =
+      micro_context->AllocateTempInputTensor(node, kFilterTensor);
   const TfLiteTensor* bias =
-      AllocateTempInputTensor(context, node, kBiasTensor);
+      micro_context->AllocateTempInputTensor(node, kBiasTensor);
 
   const TfLiteType data_type = input->type;
   int width = SizeOfDimension(input, 2);
