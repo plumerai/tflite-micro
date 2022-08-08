@@ -130,8 +130,9 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
   TfLiteTensor* filter =
       micro_context->AllocateTempInputTensor(node, kWeightsTensor);
   TfLiteTensor* bias =
-      micro_context->AllocateTempInputTensor(context, node, kBiasTensor);
-  TfLiteTensor* output = AllocateTempOutputTensor(node, kOutputTensor);
+      micro_context->AllocateTempInputTensor(node, kBiasTensor);
+  TfLiteTensor* output =
+      micro_context->AllocateTempOutputTensor(node, kOutputTensor);
 
   TF_LITE_ENSURE_TYPES_EQ(context, input->type, output->type);
   TF_LITE_ENSURE_MSG(context, input->type == filter->type,
