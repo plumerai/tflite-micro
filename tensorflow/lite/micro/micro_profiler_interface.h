@@ -18,6 +18,23 @@ limitations under the License.
 
 #include <cstdint>
 
+#ifdef LCE_RUN_ON_FPGA
+#include "build_config.h"
+#endif
+
+#ifdef TF_LITE_STRIP_ERROR_STRINGS
+#define TF_LITE_DISABLE_PROFILING
+#else
+#ifdef LCE_PROFILING_LEVEL
+#if (LCE_PROFILING_LEVEL <= 0)
+#define TF_LITE_DISABLE_LAYER_PROFILING
+#endif
+#if (LCE_PROFILING_LEVEL <= -1)
+#define TF_LITE_DISABLE_PROFILING
+#endif
+#endif
+#endif
+
 namespace tflite {
 
 // Interface class that the TFLM framework relies on for profiling.

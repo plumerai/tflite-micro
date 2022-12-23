@@ -90,10 +90,10 @@ class MicroProfiler : public MicroProfilerInterface {
   TF_LITE_REMOVE_VIRTUAL_DELETE;
 };
 
-#if defined(TF_LITE_STRIP_ERROR_STRINGS)
+#ifdef TF_LITE_DISABLE_PROFILING
 // For release builds, the ScopedMicroProfiler is a noop.
 //
-// This is done because the ScipedProfiler is used as part of the
+// This is done because the ScopedProfiler is used as part of the
 // MicroInterpreter and we want to ensure zero overhead for the release builds.
 class ScopedMicroProfiler {
  public:
@@ -133,7 +133,7 @@ class ScopedMicroProfiler {
   uint32_t event_handle_ = 0;
   MicroProfilerInterface* profiler_ = nullptr;
 };
-#endif  // !defined(TF_LITE_STRIP_ERROR_STRINGS)
+#endif  // TF_LITE_DISABLE_PROFILING
 
 }  // namespace tflite
 
