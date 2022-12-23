@@ -86,7 +86,11 @@ void MicroInterpreter::Init(MicroProfiler* profiler) {
   context_.ReportError = MicroContextReportOpError;
   context_.GetTensor = MicroContextGetTensor;
   context_.GetEvalTensor = MicroContextGetEvalTensor;
+#ifndef TF_LITE_DISABLE_PROFILING
   context_.profiler = profiler;
+#else
+  context_.profiler = nullptr;
+#endif
 
   initialization_status_ = kTfLiteOk;
 }

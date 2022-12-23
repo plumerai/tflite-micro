@@ -24,6 +24,14 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_profiler.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
+#ifndef barrier
+#ifdef _WIN32
+#define barrier()
+#else
+#define barrier() __asm__ __volatile__ ("" ::: "memory")
+#endif
+#endif
+
 namespace tflite {
 namespace {
 
@@ -162,10 +170,16 @@ TfLiteStatus MicroGraph::InvokeSubgraph(int subgraph_idx) {
 // This ifdef is needed (even though ScopedMicroProfiler itself is a no-op with
 // -DTF_LITE_STRIP_ERROR_STRINGS) because the function OpNameFromRegistration is
 // only defined for builds with the error strings.
-#if !defined(TF_LITE_STRIP_ERROR_STRINGS)
+#ifndef TF_LITE_DISABLE_PROFILING
+#ifndef TF_LITE_DISABLE_LAYER_PROFILING
     ScopedMicroProfiler scoped_profiler(
         OpNameFromRegistration(registration),
         reinterpret_cast<MicroProfiler*>(context_->profiler));
+
+    // prevent compiler's re-ordering optimisations across this, in order for
+    // the profiling to be slightly more accurate:
+    barrier();
+#endif
 #endif
 
     TFLITE_DCHECK(registration->invoke);

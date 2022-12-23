@@ -49,7 +49,7 @@ uint32_t MicroProfiler::GetTotalTicks() const {
 }
 
 void MicroProfiler::Log() const {
-#if !defined(TF_LITE_STRIP_ERROR_STRINGS)
+#ifndef TF_LITE_DISABLE_PROFILING
   for (int i = 0; i < num_events_; ++i) {
     uint32_t ticks = end_ticks_[i] - start_ticks_[i];
     MicroPrintf("%s took %" PRIu32 " ticks (%d ms).", tags_[i], ticks,
@@ -59,7 +59,7 @@ void MicroProfiler::Log() const {
 }
 
 void MicroProfiler::LogCsv() const {
-#if !defined(TF_LITE_STRIP_ERROR_STRINGS)
+#ifndef TF_LITE_DISABLE_PROFILING
   MicroPrintf("\"Event\",\"Tag\",\"Ticks\"");
   for (int i = 0; i < num_events_; ++i) {
     uint32_t ticks = end_ticks_[i] - start_ticks_[i];
@@ -69,7 +69,7 @@ void MicroProfiler::LogCsv() const {
 }
 
 void MicroProfiler::LogTicksPerTagCsv() {
-#if !defined(TF_LITE_STRIP_ERROR_STRINGS)
+#ifndef TF_LITE_DISABLE_PROFILING
   MicroPrintf(
       "\"Unique Tag\",\"Total ticks across all events with that tag.\"");
   int total_ticks = 0;

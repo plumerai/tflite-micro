@@ -18,7 +18,24 @@ limitations under the License.
 
 #include <cstdint>
 
+#ifdef LCE_RUN_ON_FPGA
+#include "build_config.h"
+#endif
+
 #include "tensorflow/lite/micro/compatibility.h"
+
+#ifdef TF_LITE_STRIP_ERROR_STRINGS
+#define TF_LITE_DISABLE_PROFILING
+#else
+#ifdef LCE_PROFILING_LEVEL
+#if (LCE_PROFILING_LEVEL <= 0)
+#define TF_LITE_DISABLE_LAYER_PROFILING
+#endif
+#if (LCE_PROFILING_LEVEL <= -1)
+#define TF_LITE_DISABLE_PROFILING
+#endif
+#endif
+#endif
 
 namespace tflite {
 
@@ -95,10 +112,10 @@ class MicroProfiler {
   TF_LITE_REMOVE_VIRTUAL_DELETE;
 };
 
-#if defined(TF_LITE_STRIP_ERROR_STRINGS)
+#ifdef TF_LITE_DISABLE_PROFILING
 // For release builds, the ScopedMicroProfiler is a noop.
 //
-// This is done because the ScipedProfiler is used as part of the
+// This is done because the ScopedProfiler is used as part of the
 // MicroInterpreter and we want to ensure zero overhead for the release builds.
 class ScopedMicroProfiler {
  public:
@@ -136,7 +153,7 @@ class ScopedMicroProfiler {
   uint32_t event_handle_ = 0;
   MicroProfiler* profiler_ = nullptr;
 };
-#endif  // !defined(TF_LITE_STRIP_ERROR_STRINGS)
+#endif  // TF_LITE_DISABLE_PROFILING
 
 }  // namespace tflite
 
