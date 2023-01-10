@@ -86,11 +86,10 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const OpData* op_data = reinterpret_cast<OpData*>(node->user_data);
 
   tflite::MicroContext* micro_context = tflite::GetMicroContext(context);
-  TfLiteTensor* cond = micro_context->AllocateTempInputTensor(node, 0);
+  const TfLiteEvalTensor* cond = tflite::micro::GetEvalInput(context, node, 0);
 
   TF_LITE_ENSURE(context, cond != nullptr);
   bool cond_value = cond->data.b[0];
-  micro_context->DeallocateTempTfLiteTensor(cond);
 
   MicroGraph* graph_info = &micro_context->graph();
   // Currently we copy the input / output between the subgraphs.
