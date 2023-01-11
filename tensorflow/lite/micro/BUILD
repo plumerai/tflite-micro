@@ -23,7 +23,10 @@ cc_library(
     ],
     copts = micro_copts() + select({
         "//tensorflow:windows": [],
-        "//conditions:default": ["-Werror"],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
     }),
 )
 
@@ -38,7 +41,10 @@ cc_library(
     ],
     copts = micro_copts() + select({
         "//tensorflow:windows": [],
-        "//conditions:default": ["-Werror"],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
     }),
     deps = [
         ":memory_helpers",
@@ -68,7 +74,10 @@ cc_library(
     ],
     copts = micro_copts() + select({
         "//tensorflow:windows": [],
-        "//conditions:default": ["-Werror"],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
     }),
     deps = [
         ":memory_helpers",
@@ -90,7 +99,10 @@ cc_library(
     ],
     copts = micro_copts() + select({
         "//tensorflow:windows": [],
-        "//conditions:default": ["-Werror"],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
     }),
     deps = [
         ":memory_helpers",
@@ -144,7 +156,10 @@ cc_library(
     ],
     copts = micro_copts() + select({
         "//tensorflow:windows": [],
-        "//conditions:default": ["-Werror"],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
     }),
     deps = [
         ":flatbuffer_utils",
@@ -174,7 +189,10 @@ cc_library(
     ],
     copts = micro_copts() + select({
         "//tensorflow:windows": [],
-        "//conditions:default": ["-Werror"],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
     }),
     deps = [],
 )
@@ -215,7 +233,10 @@ cc_library(
     ],
     copts = micro_copts() + select({
         "//tensorflow:windows": [],
-        "//conditions:default": ["-Werror"],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
     }),
     deps = [
         ":memory_helpers",
@@ -243,7 +264,10 @@ cc_library(
     ],
     copts = micro_copts() + select({
         "//tensorflow:windows": [],
-        "//conditions:default": ["-Werror"],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
     }),
     deps = [
         ":micro_compatibility",
@@ -269,7 +293,10 @@ cc_library(
     ],
     copts = micro_copts() + select({
         "//tensorflow:windows": [],
-        "//conditions:default": ["-Werror"],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
     }),
 )
 
@@ -283,7 +310,10 @@ cc_library(
     ],
     copts = micro_copts() + select({
         "//tensorflow:windows": [],
-        "//conditions:default": ["-Werror"],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
     }),
     deps = [
         ":debug_log",
@@ -301,7 +331,10 @@ cc_library(
     ],
     copts = micro_copts() + select({
         "//tensorflow:windows": [],
-        "//conditions:default": ["-Werror"],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
     }),
     deps = [
         ":micro_allocator",
@@ -322,7 +355,10 @@ cc_library(
     ],
     copts = micro_copts() + select({
         "//tensorflow:windows": [],
-        "//conditions:default": ["-Werror"],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
     }),
 )
 
@@ -336,7 +372,10 @@ cc_library(
     ],
     copts = micro_copts() + ["-DTF_LITE_USE_CTIME"] + select({
         "//tensorflow:windows": [],
-        "//conditions:default": ["-Werror"],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
     }),
     deps = ["//tensorflow/lite/c:common"],
 )
@@ -346,7 +385,13 @@ cc_library(
     hdrs = [
         "micro_profiler_interface.h",
     ],
-    copts = micro_copts(),
+    copts = micro_copts() + select({
+        "//tensorflow:windows": [],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
+    }),
 )
 
 cc_library(
@@ -359,7 +404,10 @@ cc_library(
     ],
     copts = micro_copts() + select({
         "//tensorflow:windows": [],
-        "//conditions:default": ["-Werror"],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
     }),
     deps = [
         ":micro_compatibility",
@@ -380,7 +428,10 @@ cc_library(
     ],
     copts = micro_copts() + select({
         "//tensorflow:windows": [],
-        "//conditions:default": ["-Werror"],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
     }),
     deps = [
         ":memory_helpers",
@@ -401,7 +452,10 @@ cc_library(
     ],
     copts = micro_copts() + select({
         "//tensorflow:windows": [],
-        "//conditions:default": ["-Werror"],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
     }),
     deps = [
         ":micro_allocator",
@@ -423,7 +477,10 @@ cc_library(
     ],
     copts = micro_copts() + select({
         "//tensorflow:windows": [],
-        "//conditions:default": ["-Werror"],
+        "//conditions:default": [
+            "-Werror",
+            "-Wnon-virtual-dtor",
+        ],
     }),
 )
 
