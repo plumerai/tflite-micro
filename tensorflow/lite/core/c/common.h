@@ -881,7 +881,7 @@ typedef struct TfLiteContext {
                                    size_t* bytes);
 
   // Patch by LCE, only used through Robin-generated code
-  uint8_t* robin_tensor_arena;
+  uint8_t** robin_tensor_arenas = nullptr;
 } TfLiteContext;
 
 // `TfLiteRegistrationExternal` is an external version of `TfLiteRegistration`
