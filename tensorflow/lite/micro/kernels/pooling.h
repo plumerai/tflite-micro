@@ -56,6 +56,13 @@ void AveragePoolingEvalQuantized(TfLiteContext* context, const TfLiteNode* node,
                                  const TfLiteEvalTensor* input,
                                  TfLiteEvalTensor* output);
 
+void AveragePoolingEvalQuantized16(TfLiteContext* context,
+                                   const TfLiteNode* node,
+                                   const TfLitePoolParams* params,
+                                   const OpDataPooling* data,
+                                   const TfLiteEvalTensor* input,
+                                   TfLiteEvalTensor* output);
+
 void MaxPoolingEvalFloat(TfLiteContext* context, TfLiteNode* node,
                          TfLitePoolParams* params, const OpDataPooling* data,
                          const TfLiteEvalTensor* input,
@@ -66,6 +73,12 @@ void MaxPoolingEvalQuantized(TfLiteContext* context, TfLiteNode* node,
                              const OpDataPooling* data,
                              const TfLiteEvalTensor* input,
                              TfLiteEvalTensor* output);
+
+void MaxPoolingEvalQuantized16(TfLiteContext* context, TfLiteNode* node,
+                               TfLitePoolParams* params,
+                               const OpDataPooling* data,
+                               const TfLiteEvalTensor* input,
+                               TfLiteEvalTensor* output);
 
 #if defined(CMSIS_NN)
 TfLiteRegistration Register_AVERAGE_POOL_2D_INT8();
